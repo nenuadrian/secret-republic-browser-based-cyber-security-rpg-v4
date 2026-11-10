@@ -27,7 +27,7 @@ in-game operating system and speaks to you. You register, read the story, and st
 | Training | `/train` | A random "Decryption" training run (about 17 minutes) that awards experience, money, a skill point and training experience, then has a 6-hour cooldown. |
 | Rewards | `/rewards` | Every completed mission or training run creates a reward you claim manually. The header shows unclaimed rewards. |
 | Rankings | `/rankings` | Global leaderboard, recomputed by the [rankings cron job](../../getting-started/cron-jobs/). |
-| Profiles | `/hacker/access/<username>` | Public profile with level, rank and achievements. |
+| Profiles | `/profile/<username>` | Public profile with level, rank and achievements. `/profile` opens your own. |
 | Conversations | `/conversations` | Private one-to-one messages with BBCode formatting and an unread counter. |
 | DNA | `/dna` | Personal settings: toggle the AI voice and change your password. |
 | World | `/world` | Global statistics for the server. |

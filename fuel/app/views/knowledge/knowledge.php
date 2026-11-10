@@ -65,7 +65,7 @@ use \Model\Skills;
               <?php endforeach; ?>
               <h3><strong>requirements for next level</strong></h3>
               <?php if (isset($uk['requires']['level'])): ?>
-                <p>Hacker level <?php echo $uk['requires']['level']; ?></p>
+                <p>Level <?php echo $uk['requires']['level']; ?></p>
               <?php endif; ?>
               <?php if (isset($uk['requires']['money'])): ?>
                 <p><i class="fa fa-cube"></i> <?php echo $uk['requires']['money']; ?></p>

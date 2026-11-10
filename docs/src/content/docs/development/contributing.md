@@ -19,7 +19,7 @@ only in the log.
 
 ## Guidelines
 
-- Target **PHP 8.3+**. `composer lint` must stay free of deprecations.
+- Target **PHP 8.3+** (CI runs on PHP 8.5). `composer lint` must stay free of deprecations.
 - Follow the existing style: tabs, FuelPHP naming (`Controller_Name::action_x`, `\Model\Name`), and
   views in `fuel/app/views/<controller>/`.
 - Escape user input in views with `e()`.

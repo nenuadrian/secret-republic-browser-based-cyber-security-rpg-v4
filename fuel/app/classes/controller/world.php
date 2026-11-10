@@ -26,16 +26,16 @@ class Controller_World extends Controller {
 
 						$wd = floor($datediff / (60 * 60 * 24));
 					$data = array();
-	        $data[] = array('value' => $values['nrHackers'], 'title' => 'Hackers', 'description' => 'joined the Competition');
+	        $data[] = array('value' => $values['nrHackers'], 'title' => 'Citizens', 'description' => 'joined the Competition');
 	        $data[] = array('value' => $values['nrQuests'], 'title' => 'Missions', 'description' => 'can be uncovered');
-	        $data[] = array('value' => $values['nrRewards'], 'title' => 'Rewards', 'description' => 'obtained by hackers');
-	        $data[] = array('value' => $values['nrDoneQuests'], 'title' => 'missions', 'description' => 'finished by hackers');
-	        $data[] = array('value' => $values['nrHackerGroups'], 'title' => 'hacker groups', 'description' => 'have been created');
+	        $data[] = array('value' => $values['nrRewards'], 'title' => 'Rewards', 'description' => 'obtained by citizens');
+	        $data[] = array('value' => $values['nrDoneQuests'], 'title' => 'missions', 'description' => 'finished by citizens');
+	        $data[] = array('value' => $values['nrHackerGroups'], 'title' => 'groups', 'description' => 'have been created');
 	        $data[] = array('value' => $wd, 'title' => 'Days', 'description' => 'since the new world');
-					$data[] = array('value' => $values['nrActive48'], 'title' => 'hackers connected', 'description' => 'in the last 24h');
+					$data[] = array('value' => $values['nrActive48'], 'title' => 'citizens connected', 'description' => 'in the last 24h');
 					$data[] = array('value' => $values['nrConvs'], 'title' => 'messages exchanged', 'description' => 'in conversations');
 	        $data[] = array('value' => $values['nrMoney'], 'title' => '<i class="fa fa-cube"></i>', 'description' => 'in circulation');
-					$data[] = array('value' => $values['nrTasks'], 'title' => 'tasks', 'description' => 'done by hackers');
+					$data[] = array('value' => $values['nrTasks'], 'title' => 'tasks', 'description' => 'done by citizens');
 
 	        $tVars['data'] = $data;
 

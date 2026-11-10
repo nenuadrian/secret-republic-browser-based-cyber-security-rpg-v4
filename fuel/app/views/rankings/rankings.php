@@ -10,7 +10,7 @@
 			<div style="    font-size: 40px;margin-bottom: -20px;"><?php echo number_format($rank['ranking']); ?></div>
 			</div>
 			<div class="col-xs-10">
-				<p style="margin:0"><a href="<?php echo Uri::create('hacker/access/' . $rank['username']); ?>"><?php echo $rank['username']; ?></a></p>
+				<p style="margin:0"><a href="<?php echo Uri::create('profile/' . $rank['username']); ?>"><?php echo $rank['username']; ?></a></p>
 				<small><?php echo number_format($rank['ranking_points']); ?> points - <?php echo number_format($rank['knowledge_points']); ?> points</small>
 			</div>
 		</div>

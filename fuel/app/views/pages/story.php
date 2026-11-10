@@ -11,7 +11,7 @@ A tale about one individual who grasped the whole of humanity with his own two h
 
 A genius? Perhaps. A madman? Surely. A human? That is for you to decide, really.</p>
 <br/><br/>
-<p>Today's hackers are the only ones able to express opinions, hacktivism being their only weapon.
+<p>Today, cyber security operatives are the only ones left who can speak freely, and code is their only weapon.
 
 Emilia and the Cardinal are Artificial Intelligence entities that hold power over the entire Grid and AlphaCo assets.
 
@@ -21,7 +21,7 @@ A competition has begun. A fight for the chairman position of Alpha, put at stak
 <br/><br/><br/>
   <h3>feel for all intents and purposes invincible and I fear this will be the delusion to bring my downfall..</h3>
 
- <h1>..I've sold my soul to hacking...</h1><br/><br/>
+ <h1>..I've sold my soul to the Grid...</h1><br/><br/>
   <a class="btn btn-block" href="<?php echo Uri::create('quests'); ?>">BEGIN</a>
 </div>
 

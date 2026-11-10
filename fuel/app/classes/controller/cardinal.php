@@ -7,7 +7,16 @@ class Controller_Cardinal extends Controller {
         if (!Hacker::can('cardinal_dashboard')) Response::redirect(Uri::base());
     }
 
+    // Legacy admin URLs (/cardinal/hacker/<id>, /cardinal/hackers)
     public function action_hacker($id) {
+      Response::redirect(Uri::create('cardinal/player/' . (int) $id), 'location', 301);
+    }
+
+    public function action_hackers() {
+      Response::redirect(Uri::create('cardinal/players', array(), Input::get()), 'location', 301);
+    }
+
+    public function action_player($id) {
       if (!Hacker::can('manage_user')) Response::redirect(Uri::base());
       $hacker = DB::select()->from('user')->where('user_id', $id)->execute()->as_array();
       if (!$hacker) Response::redirect(Uri::base());
@@ -22,7 +31,7 @@ class Controller_Cardinal extends Controller {
       }
 
       $tVars = array('hacker' => $hacker);
-      return View::forge('cardinal/cardinal_hacker', $tVars);
+      return View::forge('cardinal/cardinal_player', $tVars);
     }
 
     public function action_online() {
@@ -35,11 +44,11 @@ class Controller_Cardinal extends Controller {
       return View::forge('cardinal/cardinal_online', $tVars);
     }
 
-    public function action_hackers() {
+    public function action_players() {
       if (Hacker::group() != 2) Response::redirect(Uri::base());
       $result = DB::select(DB::expr('COUNT(*) as count'))->from('user')->execute();
       $config = array(
-          'pagination_url' => Uri::create('cardinal/hackers'),
+          'pagination_url' => Uri::create('cardinal/players'),
           'total_items'    => $result->current()['count'],
           'per_page'       => 50,
           'uri_segment'    => 'page',

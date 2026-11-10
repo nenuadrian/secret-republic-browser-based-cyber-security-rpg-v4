@@ -119,6 +119,6 @@ class Controller_Welcome extends Controller {
 	}
 
 	public function action_404() {
-		return View::forge('welcome/404');
+		return Response::forge(View::forge('welcome/404'), 404);
 	}
 }

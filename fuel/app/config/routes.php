@@ -6,4 +6,7 @@ return array(
 	'create-account' => 'authenticate/register',
 	'privacy-policy' => 'pages/index/privacy_policy',
 	'terms-of-services' => 'pages/index/tos',
+
+	// Public player profiles
+	'profile/(:segment)' => 'profile/view/$1',
 );

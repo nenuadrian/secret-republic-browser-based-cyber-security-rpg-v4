@@ -4,7 +4,7 @@
     <div class="col-md-3"></div>
       <div class="col-md-6">
 	<div class="text-center">
-    <h1><a href="<?php echo Uri::create('hacker/access/' . Hacker::get('username')); ?>"><?php echo Hacker::get('username'); ?></a></h1>
+    <h1><a href="<?php echo Uri::create('profile/' . Hacker::get('username')); ?>"><?php echo Hacker::get('username'); ?></a></h1>
 	<h4>LEVEL <?php echo Hacker::get('level'); ?></h4>
   <h5>ranked #<?php echo number_format(Hacker::get('ranking')); ?></h5><br/><br/>
   <div style="max-width:200px; display:inline-block">

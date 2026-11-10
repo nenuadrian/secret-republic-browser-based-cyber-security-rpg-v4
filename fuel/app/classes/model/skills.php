@@ -15,7 +15,7 @@ class Skills extends \Model {
                 ),
             2 => array(
                 'name' => 'Vulnerability analysis',
-                'description' => 'A vital skill for any hacker. As this skill improves, you will get a natural feel for where vulnerabilities should be and when exploits could be most effectivelly used.',
+                'description' => 'A vital skill for any security specialist. As this skill improves, you will get a natural feel for where vulnerabilities should be and when exploits could be most effectivelly used.',
                 'influence' => function($level) {
                             return array(
                                 'crack_1' => $level * 2
