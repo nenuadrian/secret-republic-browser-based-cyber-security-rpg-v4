@@ -60,7 +60,7 @@ return array(
 		 */
 		'from' => array(
 			'email' => 'do-not-reply@secretrepublic.net',
-			'name'  => 'Secret Republic of Hackers',
+			'name'  => 'Secret Republic',
 		),
 
 		/**

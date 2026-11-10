@@ -23,5 +23,5 @@
 </div>
 
 <?php if (isset($auto_open) && $auto_open): ?>
-  <?php GlobalJs::add("$('#${id}').modal({});"); ?>
+  <?php GlobalJs::add("$('#{$id}').modal({});"); ?>
 <?php endif; ?>

@@ -1,0 +1,94 @@
+---
+title: Secret Republic
+description: Secret Republic is a free, open source browser-based cyber security RPG. Break into simulated servers, crack passwords, query databases and build your own missions. Self-host with PHP 8.5, MySQL and Docker.
+template: splash
+head:
+  - tag: title
+    content: 'Secret Republic: Open Source Browser-Based Cyber Security RPG'
+hero:
+  title: Secret Republic
+  tagline: An open source, browser-based cyber security RPG. Break into servers, crack passwords and query databases, then design missions of your own.
+  image:
+    file: ../../assets/logo.png
+    alt: Secret Republic crown logo
+  actions:
+    - text: Quick start
+      link: getting-started/quick-start/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4
+      icon: github
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import shotMissions from '../../../../images/5.png';
+import shotDesigner from '../../../../images/8.png';
+import shotSkills from '../../../../images/3.png';
+
+## What is Secret Republic?
+
+**Secret Republic** is a browser-based role-playing game about cyber security. Players take
+missions from the Cardinal, an in-game AI with its own voice. In each mission they ping and scan servers,
+connect over SSH-style file services, read intercepted mail, crack protected accounts and run SQL against
+live databases. Everything runs in the browser with a minimal, app-like UI that works on phones, tablets
+and desktops.
+
+The full game is open source under the MIT license, including the **mission designer**, so you can host
+your own world and write your own puzzles.
+
+<CardGrid>
+	<Card title="Point-and-click intrusion" icon="laptop">
+		Three server types (file/SSH, email and SQL database) to combine into multi-step puzzles.
+	</Card>
+	<Card title="In-game mission designer" icon="pencil">
+		Build servers, users, files, emails and objectives in the browser. Shortcodes give every player a randomized IP and their own name.
+	</Card>
+	<Card title="Skills, knowledge & rewards" icon="star">
+		Six upgradable skills, three knowledge trees, training runs, rankings and claimable rewards.
+	</Card>
+	<Card title="AI voice" icon="comment-alt">
+		A synthetic operator voice reacts to what you do: access granted, cracking initiated, command done.
+	</Card>
+	<Card title="Modern stack" icon="rocket">
+		PHP 8.5, FuelPHP 1.9 and MySQL 9.7, with one-command Docker setup and a web install wizard.
+	</Card>
+	<Card title="Open source" icon="github">
+		MIT licensed. Fork it, theme it, write missions, and please link back to the project.
+	</Card>
+</CardGrid>
+
+## See it in action
+
+<div class="sr-shots">
+	<figure>
+		<Image src={shotMissions} alt="Mission interface showing a CQL database challenge" widths={[480, 960]} sizes="(min-width: 50rem) 33vw, 100vw" />
+		<figcaption>Missions: SQL challenge on a database server</figcaption>
+	</figure>
+	<figure>
+		<Image src={shotDesigner} alt="Cardinal mission designer editing servers and services" widths={[480, 960]} sizes="(min-width: 50rem) 33vw, 100vw" />
+		<figcaption>Mission designer</figcaption>
+	</figure>
+	<figure>
+		<Image src={shotSkills} alt="Skills page with upgradable cyber security skills" widths={[480, 960]} sizes="(min-width: 50rem) 33vw, 100vw" />
+		<figcaption>Skills</figcaption>
+	</figure>
+</div>
+
+## Run your own server in two minutes
+
+```bash
+git clone https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4.git
+cd secret-republic-browser-based-cyber-security-rpg-v4
+docker compose up -d --build
+# open http://localhost:8080 and create the admin account
+```
+
+<CardGrid>
+	<LinkCard title="Quick start with Docker" href="getting-started/quick-start/" description="PHP 8.5 + MySQL 9.7 with one command." />
+	<LinkCard title="Install on shared hosting / LAMP" href="getting-started/manual-install/" description="Download a release, upload it, run the setup wizard." />
+	<LinkCard title="How missions work" href="game/missions/" description="Servers, services, objectives and the in-game commands." />
+	<LinkCard title="Write your own missions" href="admin/mission-designer/" description="The Cardinal editor, objective types and shortcodes." />
+</CardGrid>

@@ -8,7 +8,7 @@ CREATE TABLE `analytics` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `user_id` int(11) DEFAULT NULL,
   `server_data` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -24,7 +24,7 @@ CREATE TABLE `conversation` (
   `parent_conversation_id` int(11) DEFAULT NULL,
   `message` longtext,
   `replies` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -38,7 +38,7 @@ CREATE TABLE `email_queue` (
   `processed_at` timestamp NULL DEFAULT NULL,
   `language` varchar(3) NOT NULL DEFAULT 'en',
   `target_name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -48,7 +48,7 @@ CREATE TABLE `feedback` (
   `user_id` int(11) NOT NULL,
   `data` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -59,7 +59,7 @@ CREATE TABLE `group_application` (
   `user_id` int(11) NOT NULL,
   `personal_statement` text NOT NULL,
   `created` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -70,7 +70,7 @@ CREATE TABLE `hacker_group` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ranking` int(11) NOT NULL DEFAULT '0',
   `ranking_points` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,7 @@ CREATE TABLE `hacker_group_application` (
   `hacker_group_id` int(11) NOT NULL,
   `message` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE `hacker_quote` (
   `quote_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `author` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -705,7 +705,7 @@ INSERT INTO `hacker_quote` (`quote_id`, `content`, `author`) VALUES
 
 CREATE TABLE `level_rewards` (
   `level` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -728,7 +728,7 @@ CREATE TABLE `quest` (
   `pm_success_title` varchar(255) DEFAULT NULL,
   `pm_success_content` text,
   `duration` int(21) NOT NULL DEFAULT '10'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -754,7 +754,7 @@ CREATE TABLE `quest_group` (
   `level` int(11) NOT NULL DEFAULT '0',
   `group_order` int(11) NOT NULL DEFAULT '0',
   `description` varchar(1000) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -780,7 +780,7 @@ CREATE TABLE `quest_objective` (
   `quest_id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `data2` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -828,7 +828,7 @@ CREATE TABLE `quest_server` (
   `bounces` int(11) NOT NULL DEFAULT '3',
   `network` int(11) NOT NULL DEFAULT '10',
   `hide_hn` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- --------------------------------------------------------
 
 
@@ -857,7 +857,7 @@ CREATE TABLE `quest_server_service` (
   `quest_id` int(11) NOT NULL,
   `users` varchar(255) NOT NULL DEFAULT 'root::60',
   `required_objective` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -881,7 +881,7 @@ CREATE TABLE `quest_service_user` (
   `quest_id` int(11) NOT NULL,
   `security` int(11) NOT NULL DEFAULT '0',
   `content` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -911,7 +911,7 @@ CREATE TABLE `quest_user_entity` (
   `required_running` varchar(500) NOT NULL,
   `required_objective` int(11) NOT NULL DEFAULT '0',
   `entity_order` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -957,7 +957,7 @@ CREATE TABLE `reward` (
   `achievements` text,
   `train_id` int(11) DEFAULT NULL,
   `train_experience` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -975,7 +975,7 @@ CREATE TABLE `server` (
   `ram_used` int(11) NOT NULL DEFAULT '0',
   `last_apps_profit_check` int(11) DEFAULT NULL,
   `change_ip_request` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -992,7 +992,7 @@ CREATE TABLE `server_app` (
   `running` tinyint(1) DEFAULT NULL,
   `server_id` int(11) NOT NULL,
   `owner_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1021,7 +1021,7 @@ CREATE TABLE `task` (
   `data_id` int(11) DEFAULT NULL,
   `complete_status` tinyint(4) DEFAULT NULL,
   `cancelled` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1034,7 +1034,7 @@ CREATE TABLE `tutorial_step` (
   `money` int(11) NOT NULL DEFAULT '0',
   `skill_points` int(11) NOT NULL DEFAULT '0',
   `experience` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1082,7 +1082,7 @@ CREATE TABLE `user` (
   `password_reset_last_request` timestamp NULL DEFAULT NULL,
   `q_answer` int(11) DEFAULT NULL,
   `knowledge_points` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -1094,7 +1094,7 @@ CREATE TABLE `user_mission` (
   `last_done` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `best_time` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 

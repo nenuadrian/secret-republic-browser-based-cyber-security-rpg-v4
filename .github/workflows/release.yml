@@ -1,43 +1,51 @@
 name: Release
 
+# Push a tag such as `v4.1.0` to publish a GitHub Release with ready-to-run
+# archives (all Composer libraries included, no dev tools). Tags with a suffix,
+# e.g. `v4.1.0-rc1`, are published as pre-releases instead of "Latest".
 on:
   push:
-    tags:
-      - "v*"
+    tags: ["v*"]
 
 permissions:
   contents: write
 
 jobs:
   release:
-    runs-on: ubuntu-22.04-arm
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.2"
+          php-version: "8.5"
+          extensions: mysqli, pdo_mysql, sqlite3
+          tools: composer:v2
 
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-dev --optimize-autoloader
+      - name: Install production dependencies
+        run: composer install --prefer-dist --no-progress --no-dev --optimize-autoloader --no-interaction
 
-      - name: Create release archive
-        run: |
-          tar czf secretrepublic-${{ github.ref_name }}.tar.gz \
-            --exclude='.git' \
-            --exclude='.github' \
-            --exclude='tests' \
-            --exclude='.gitignore' \
-            .
-          zip -r secretrepublic-${{ github.ref_name }}.zip . \
-            -x '.git/*' '.github/*' 'tests/*' '.gitignore'
+      - name: Build standalone archives
+        run: scripts/build-release.sh "${{ github.ref_name }}"
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v3
         with:
+          name: Secret Republic ${{ github.ref_name }}
           generate_release_notes: true
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          make_latest: ${{ !contains(github.ref_name, '-') }}
+          body: |
+            **Standalone package** - includes FuelPHP and every PHP library, nothing to install.
+
+            1. Download `secretrepublic-${{ github.ref_name }}.zip` (or `.tar.gz`) and extract it on a PHP 8.3+ host with Apache `mod_rewrite` and MySQL 8+.
+            2. Point the web root at `public_html/` and make `fuel/app/config`, `fuel/app/cache`, `fuel/app/logs` and `fuel/app/tmp` writable by the web server.
+            3. Create an empty MySQL database and open the site: the setup wizard does the rest.
+
+            Prefer Docker? `docker pull ghcr.io/${{ github.repository }}:${{ github.ref_name }}` - see the [documentation](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/).
           files: |
-            secretrepublic-${{ github.ref_name }}.tar.gz
-            secretrepublic-${{ github.ref_name }}.zip
+            dist/secretrepublic-${{ github.ref_name }}.tar.gz
+            dist/secretrepublic-${{ github.ref_name }}.zip
+            dist/SHA256SUMS.txt

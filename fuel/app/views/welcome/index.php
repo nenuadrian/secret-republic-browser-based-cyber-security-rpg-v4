@@ -17,7 +17,7 @@
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
 		<img src="<?php echo Uri::create('assets/img/logo.png'); ?>" class="main-logo" style="max-width:300px; width:100%; margin-top:-60px; margin-bottom:20px" />
-    <p><a href="https://github.com/nenuadrian/Secret-Republic-Hacker-Game-ORPBG-Alpha" target="_blank">Open Source framework of this game on GitHub</a></p>
+    <p><a href="https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4" target="_blank">Open Source framework of this game on GitHub</a></p>
 
     <?php echo !Input::post('register') ? View::forge('components/messages') : ''; ?>
     <br/>
@@ -38,13 +38,13 @@
     <form method="post" id="register" action="#register">
 			<div class="row">
 				<div class="col-xs-6">
-					<input type="text" class="form-control text-center" placeholder="nickname" name="username" required value="<?php echo Input::post('username', ''); ?>" autocapitalize="off" autocorrect="off" maxlength="30" />
+					<input type="text" class="form-control text-center" placeholder="nickname" name="username" required value="<?php echo e(Input::post('username', '')); ?>" autocapitalize="off" autocorrect="off" maxlength="30" />
 				</div>
 				<div class="col-xs-6">
-					<input type="password" class="form-control text-center" placeholder="password" name="password" required value="<?php echo Input::post('password', ''); ?>" maxlength="30" />
+					<input type="password" class="form-control text-center" placeholder="password" name="password" required value="<?php echo e(Input::post('password', '')); ?>" maxlength="30" />
 				</div>
 			</div>
-			<input type="email" class="form-control text-center" placeholder="email (bonus on confirm)" name="email" required value="<?php echo Input::post('email', ''); ?>" autocapitalize="off" autocorrect="off" maxlength="255" />
+			<input type="email" class="form-control text-center" placeholder="email (bonus on confirm)" name="email" required value="<?php echo e(Input::post('email', '')); ?>" autocapitalize="off" autocorrect="off" maxlength="255" />
 			<br/>
 			<p>
 			I fully agree with the <a href="<?php echo Uri::create('pages/view/terms-of-service'); ?>">terms of service</a> && <a href="<?php echo Uri::create('pages/view/privacy-policy'); ?>">privacy policy</a> and would like to

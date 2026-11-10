@@ -2,9 +2,9 @@
 
 class Controller_Welcome extends Controller {
 	public function __construct() {
-		if (!File::exists(APPPATH . '/config/db.php')) {
+		if (\Model\Setup::needs_setup()) {
 			Response::redirect(Uri::create('setup'));
-		} 
+		}
 	}
 
 	public function action_index() {

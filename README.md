@@ -1,192 +1,78 @@
-<a id="secret-republic---browser-based-php-hacker-themed-rpg---alpha-v4"></a>
-# Secret Republic - Browser Based PHP Hacker Themed RPG - Alpha V4
+# Secret Republic: Browser-Based Cyber Security RPG
 
+[![CI](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/actions/workflows/ci.yml/badge.svg)](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/actions/workflows/ci.yml)
+[![Docker image](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/actions/workflows/docker.yml/badge.svg)](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/pkgs/container/secret-republic-browser-based-cyber-security-rpg-v4)
+[![Docs](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/actions/workflows/docs-pages.yml/badge.svg)](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/)
+[![Latest release](https://img.shields.io/github/v/release/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4?include_prereleases&sort=semver)](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-[![PHP Composer](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/php.yml/badge.svg)](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/php.yml)
-[![Docs - Build and Deploy](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/docs-pages.yml/badge.svg)](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/docs-pages.yml)
-[![Docker Build](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/docker.yml/badge.svg)](https://github.com/nenuadrian/hacker-rpg-php-browser-based-game/actions/workflows/docker.yml)
+![Secret Republic](images/cover.jpg)
 
-![Cover](images/cover.jpg)
+**Secret Republic** is an open source, browser-based **cyber security RPG**. Players break into
+simulated servers, crack passwords, read intercepted mail and run SQL against live databases, guided by
+an AI voice. Admins can build missions of their own in the in-game designer.
 
-## Table of Contents
+**📖 Documentation: https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/**
 
-- [Secret Republic - Browser Based PHP Hacker Themed RPG - Alpha V4](#secret-republic---browser-based-php-hacker-themed-rpg---alpha-v4)
-  - [Table of Contents](#table-of-contents)
-  - [Read about the journey](#read-about-the-journey)
-  - [Overview](#overview)
-  - [Main Features](#main-features)
-  - [Simple Setup](#simple-setup)
-  - [Cron jobs](#cron-jobs)
-  - [Linting](#linting)
-  - [Documentation](#documentation)
-  - [Mobile app](#mobile-app)
-  - [Screenshots](#screenshots)
-    - [Skills](#skills)
-    - [Knowledge base](#knowledge-base)
-    - [Missions (there are email, database and file based servers which can be used to design different puzzles)](#missions-there-are-email-database-and-file-based-servers-which-can-be-used-to-design-different-puzzles)
-    - [Simple rankings](#simple-rankings)
-    - [Mission designer](#mission-designer)
-    - [Rewards](#rewards)
-    - [Edit account](#edit-account)
-  - [Tests](#tests)
-  - [Travelling through time - V1](#travelling-through-time---v1)
-  - [License](#license)
-  - [Secret Republic V3 (OLDER W/ MORE FEATURES)](#secret-republic-v3-older-w-more-features)
+## Features
 
-## Read about the journey
+- **Point-and-click missions** across file/SSH, email and SQL database servers, with randomized IPs per run
+- **In-game mission designer** with chained objectives, shortcodes and test play
+- **Progression**: levels, six skills, knowledge trees, training, rewards and rankings
+- **AI operator voice** and a mobile-ready, app-like UI
+- **Modern stack**: PHP 8.5, FuelPHP 1.9 and MySQL 9.7, with one-command Docker and a web setup wizard
 
-[Read article on Medium](https://adriannenu.medium.com/secret-republic-update-hacker-themed-browser-based-php-game-855299b4cdea)
+## Quick start
 
-## Overview
-
-Audio trailer on Youtube: https://www.youtube.com/watch?v=6thfiGb-b7c
-
-A lot of work has gone into this, but it not a fully documented project.
-
-It's been through years of development with this being its 3rd itteration.
-
-The project is not under active development with milestones in-place.
-
-It is built upon the https://fuelphp.com MVC framework.
-
-## Main Features
-
-1. Audio AI (woman, same as trailer) voice speaks when interacting with the game
-
-2. Futuristic minimalistic Bootstrap-based UI, mobile ready, made to feel like an app
-
-3. Point and click based missions with servers of multiple types (file servers, email and database)
-
-4. In-game Mission designer with BBCode like syntax features
-
-5. Upgradable knowledge & skills
-
-6. Rewards system
-
-
-## Simple Setup
-
-You need a webserver (e.g. MAMP/WAMP/XAMPP) able to run PHP (tested with 7.3) and a MySQL database (LAMP stack).
-
-1. Install `composer` (the PHP dependency management system - `brew install composer` for MacOS) and run `composer install`
-
-2. You will need to create an empty Database in MySQL - its name is not relevant, but you will need it in the next step. For MAMP, you would go to `http://localhost:8888/phpMyAdmin5`
-
-3. Visit `http://localhost/public_html` - this may be different if you are using another port or directory structure, e.g. `http://localhost:8888/sr/public_html` and follow the setup process
-
-
-![Screenshot](images/setup.png)
-
-
-
-## Cron jobs
-
-You may want to setup cron tasks to run the following pages once in a while
-
-your-url/cron/rankings
-
-your-url/cron/emails
-
-e.g.
-
-*/2 * * * * wget -O - http://localhost/cron/emails >/dev/null 2>&1
-
-https://en.wikipedia.org/wiki/Cron
-
-## Linting
-
-Checking PHP syntax
+```bash
+git clone https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4.git
+cd secret-republic-browser-based-cyber-security-rpg-v4
+docker compose up -d --build --wait
 ```
-./fuel/vendor/bin/phplint ./ --exclude=vendor
-```
+
+Open http://localhost:8080 and create your admin account. That's it.
+
+Without Docker, download the ready-to-run archive from the
+[latest release](https://github.com/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4/releases/latest),
+upload it to any PHP 8.3+ / MySQL 8+ host and follow the
+[manual install guide](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/getting-started/manual-install/).
 
 ## Documentation
 
-This repository includes MkDocs Material documentation with:
-
-1. The root `README.md` rendered as the docs home page.
-2. Auto-generated code-reference pages for all `fuel/app/**/*.php` files.
-
-Build it locally:
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements-docs.txt
-mkdocs serve
-```
-
-Create a static site:
-
-```
-mkdocs build
-```
-
-Deploy to GitHub Pages:
-
-1. The workflow at `.github/workflows/docs-pages.yml` runs on pushes to `master` (and manual dispatch).
-2. In GitHub repository settings, set **Pages** source to **GitHub Actions**.
-
-## Mobile app
-
-One approach is to use these repositories: 
- * iOS: https://github.com/nenuadrian/iOS-website-elegant-rendering-swift-app
- * Android: https://github.com/nenuadrian/android-website-elegant-rendering
+| | |
+| --- | --- |
+| **Getting started** | [Quick start](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/getting-started/quick-start/) · [Manual install](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/getting-started/manual-install/) · [Configuration](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/getting-started/configuration/) · [Cron jobs](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/getting-started/cron-jobs/) |
+| **Playing** | [Gameplay](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/game/gameplay/) · [Missions](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/game/missions/) · [Screenshots](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/game/screenshots/) |
+| **Running a server** | [Admin area](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/admin/cardinal/) · [Mission designer](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/admin/mission-designer/) · [Deployment](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/admin/deployment/) · [Troubleshooting](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/admin/troubleshooting/) |
+| **Development** | [Architecture](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/development/architecture/) · [Testing & CI](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/development/testing/) · [Contributing](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/development/contributing/) · [Known issues](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/development/known-issues/) |
 
 ## Screenshots
 
-![Screenshot](images/1.png)
+| Missions | Mission designer | Skills |
+| --- | --- | --- |
+| ![Mission interface](images/5.png) | ![Mission designer](images/8.png) | ![Skills](images/3.png) |
 
-![Screenshot](images/2.png)
+[More screenshots →](https://nenuadrian.github.io/secret-republic-browser-based-cyber-security-rpg-v4/game/screenshots/)
 
-### Skills
-![Screenshot](images/3.png)
+## Development
 
-### Knowledge base
-![Screenshot](images/4.png)
-
-### Missions (there are email, database and file based servers which can be used to design different puzzles)
-![Screenshot](images/5.png)
-
-![Screenshot](images/6.png)
-
-### Simple rankings
-![Screenshot](images/7.png)
-
-### Mission designer
-![Screenshot](images/8.png)
-
-![Screenshot](images/9.png)
-
-### Rewards
-![Screenshot](images/10.png)
-
-### Edit account
-![Screenshot](images/11.png)
-
-## Tests
-
-```
-./fuel/vendor/phpunit/phpunit/phpunit tests
+```bash
+composer install
+composer lint     # syntax + deprecation check
+composer test     # unit tests
+tests/smoke.sh    # end-to-end check against a running stack
 ```
 
-<a id="travelling-through-time---v1"></a>
-## Travelling through time - V1
+The docs site is an Astro + Starlight project in [`docs/`](docs) (`cd docs && npm install && npm run dev`).
 
-![Screenshot](images/original1.jpg)
+## History
 
-![Screenshot](images/original2.png)
-
+This is version 4 of a game first launched in 2012. Read
+[the journey](https://adriannenu.medium.com/secret-republic-update-hacker-themed-browser-based-php-game-855299b4cdea),
+listen to the [audio trailer](https://www.youtube.com/watch?v=6thfiGb-b7c), or explore the older
+[V3 codebase](https://github.com/nenuadrian/Secret-Republic-Hacking-Browser-Game-V3).
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
-
-Please link and contribute back to this repository if using the code or assets :)
-
-
-## Secret Republic V3 (OLDER W/ MORE FEATURES)
-
-V3 is much older, less organized and not respecting of any patterns what-so-ever in code, mostly based on a framework written from scratch.
-
-Find version 3 here: https://github.com/nenuadrian/Secret-Republic-Hacking-Browser-Game-V3
+[MIT](LICENSE). If you use the code or assets, please link back to this repository and contribute
+improvements upstream.

@@ -7,7 +7,7 @@
 		<title><?php echo isset($title) ? $title . ' - ' : ''; ?><?php echo Config::get('title'); ?></title>
 		<link rel="shortcut icon" href="<?php echo Uri::create('assets/img/favicon.ico'); ?>" type="image/x-icon">
 		<?php if (!Hacker::check()): ?>
-			<meta name="description" content="An online hacking simulation Multiplayer Online Role Playing Game based on all devices. We aim to provide something new, a fresh gameplay experience. The hacker game we've all been waiting for!">
+			<meta name="description" content="Secret Republic is a free online cyber security role playing game that runs on any device. Break into simulated servers, crack passwords and query databases in a multiplayer world.">
 			<meta name="revisit" content="After 3 days">
 			<meta name="Expires" content="never">
 			<meta name="robots" content="INDEX,FOLLOW">
@@ -16,7 +16,7 @@
 			<meta name="author" content="Secret Republic">
 			<meta name="publisher" content="Secret Republic">
 			<meta name="copyright" content="Secret Republic">
-			<meta name="page-topic" content="free online hacking economical social and simulation browser based hacker game"> <meta name="audience" content="all">
+			<meta name="page-topic" content="free online cyber security simulation browser based role playing game"> <meta name="audience" content="all">
 		<?php endif; ?>
 	  <?php echo Asset::css('reset.css'); ?>
 	  <?php echo Asset::css('bootstrap.min.css'); ?>
