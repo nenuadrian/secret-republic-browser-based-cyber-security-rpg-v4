@@ -1,8 +1,8 @@
 name: Release
 
-# Push a tag such as `v4.1.0` to publish a GitHub Release with ready-to-run
+# Push a tag such as `v2026.11` to publish a GitHub Release with ready-to-run
 # archives (all Composer libraries included, no dev tools). Tags with a suffix,
-# e.g. `v4.1.0-rc1`, are published as pre-releases instead of "Latest".
+# e.g. `v2026.12-rc1`, are published as pre-releases instead of "Latest".
 on:
   push:
     tags: ["v*"]

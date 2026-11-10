@@ -66,18 +66,21 @@ included. Extract one, point the web root at `public_html/` and follow the
 
 ## Publishing a release (maintainers)
 
-Push a version tag. GitHub Actions builds the archives, publishes the release and pushes versioned
-Docker images.
+Releases use date-based tags: `vYYYY.MM`, plus `.N` for a second release in the same month
+(`v2026.11.1`). Tag the latest `master` and push the tag. GitHub Actions builds the archives,
+publishes the release as _Latest_ and pushes a Docker image tagged with the same name.
 
 ```bash
-git tag v4.1.0
-git push origin v4.1.0
+git checkout master
+git pull
+git tag -a v2026.11 -m "Secret Republic v2026.11"
+git push origin v2026.11
 ```
 
-Tags with a suffix such as `v4.1.0-rc1` are published as pre-releases and don't replace _Latest_. To
-build the archive locally:
+Tags with a suffix, such as `v2026.12-rc1`, are published as pre-releases and don't replace _Latest_.
+To build the archive locally:
 
 ```bash
 composer install --no-dev --optimize-autoloader
-scripts/build-release.sh v4.1.0   # writes dist/
+scripts/build-release.sh v2026.11   # writes dist/
 ```
