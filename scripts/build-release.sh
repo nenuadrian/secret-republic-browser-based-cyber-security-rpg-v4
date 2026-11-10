@@ -2,7 +2,7 @@
 # Package a standalone release from the current checkout.
 #
 #   composer install --no-dev --optimize-autoloader
-#   scripts/build-release.sh v4.1.0
+#   scripts/build-release.sh v2026.11
 #
 # Produces dist/secretrepublic-<version>.{tar.gz,zip} and dist/SHA256SUMS.txt.
 # The archives contain FuelPHP and all PHP libraries, so they run as-is.
