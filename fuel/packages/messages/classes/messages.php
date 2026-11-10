@@ -38,7 +38,7 @@ class Messages {
 	 * The format string for date time value
 	 * @var string
 	 */
-	protected static $dateTimeFormat = "%H:%M:%s";
+	protected static $dateTimeFormat = 'H:i:s';
 
 	/**
 	 * Add a message entry
@@ -165,7 +165,7 @@ class Messages {
 			}
 			$view = \View::forge($template, $entry->toArray(), false);
 			$view->entry = $entry;
-			$view->set('dateTime', strftime(static::$dateTimeFormat, $entry->timestamp), true);
+			$view->set('dateTime', date(static::$dateTimeFormat, (int) $entry->timestamp), true);
 			$res[] = $view;
 			if (count($res) == $limit) break;
 		}

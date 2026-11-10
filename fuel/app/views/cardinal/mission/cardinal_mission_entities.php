@@ -1,5 +1,5 @@
 <?php if ($service['type'] == 3) return; ?>
-<?php foreach($entities as $entity_id => $e): if ($e['user_id'] != $user_id) continue; $type = Config::get('service_types')[$service['type']]; ?>
+<?php foreach($entities as $entity_id => $e): if ($e['user_id'] != $user_id) continue; $type = \Model\Missions::$service_types[$service['type']] ?? null; ?>
 
   <div class="box-layout" id="anchor_entity_<?php echo $entity_id; ?>" >
 		<div class="box-layout-success">

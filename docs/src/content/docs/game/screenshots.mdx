@@ -1,0 +1,61 @@
+---
+title: Screenshots
+description: Screenshots of Secret Republic, the browser-based cyber security RPG. Dashboard, missions, skills, knowledge, rankings, rewards and the in-game mission designer.
+---
+
+import { Image } from 'astro:assets';
+import s1 from '../../../../../images/1.png';
+import s2 from '../../../../../images/2.png';
+import s3 from '../../../../../images/3.png';
+import s4 from '../../../../../images/4.png';
+import s5 from '../../../../../images/5.png';
+import s6 from '../../../../../images/6.png';
+import s7 from '../../../../../images/7.png';
+import s8 from '../../../../../images/8.png';
+import s9 from '../../../../../images/9.png';
+import s10 from '../../../../../images/10.png';
+import s11 from '../../../../../images/11.png';
+import s12 from '../../../../../images/12.png';
+import v1a from '../../../../../images/original1.jpg';
+import v1b from '../../../../../images/original2.png';
+
+export const shots = [
+	[s1, 'Welcome screen: log in or claim citizenship'],
+	[s2, 'Dashboard: level progress, rank and quote of the day'],
+	[s3, 'Skills: six upgradable abilities'],
+	[s4, 'Knowledge base: Reconnaissance, Cryptology and Stealth'],
+	[s5, 'Mission: SQL challenge on a CQL database server'],
+	[s6, 'Mission: a discovered server and its SSH service'],
+	[s7, 'Rankings leaderboard'],
+	[s8, 'Mission designer: objective list'],
+	[s9, 'Mission designer: servers, services and users'],
+	[s10, 'Training reward ready to claim'],
+	[s11, 'DNA settings: AI voice and password'],
+	[s12, 'Rankings on a fresh server'],
+];
+
+<div class="sr-shots">
+	{shots.map(([src, alt]) => (
+		<figure>
+			<a href={src.src}>
+				<Image src={src} alt={alt} widths={[480, 960]} sizes="(min-width: 50rem) 33vw, 100vw" />
+			</a>
+			<figcaption>{alt}</figcaption>
+		</figure>
+	))}
+</div>
+
+## Where it started
+
+The first version of the game, before the 2016 reset:
+
+<div class="sr-shots">
+	<figure>
+		<Image src={v1a} alt="Secret Republic version 1, login screen" />
+		<figcaption>Version 1</figcaption>
+	</figure>
+	<figure>
+		<Image src={v1b} alt="Secret Republic version 1, in game" widths={[480, 960]} sizes="(min-width: 50rem) 50vw, 100vw" />
+		<figcaption>Version 1, in game</figcaption>
+	</figure>
+</div>

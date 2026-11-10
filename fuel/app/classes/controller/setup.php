@@ -1,54 +1,131 @@
 <?php
 
-class Controller_Setup extends Controller {
+use Model\Setup;
 
-	public function action_index()  {
-		if (File::exists(APPPATH . '/config/db.php')) {
-			die('Must manually delete config.db.php');
-		} 
+/**
+ * First-run setup wizard (/setup).
+ *
+ * - No fuel/app/config/db.php: asks for database credentials and the admin
+ *   account, verifies the connection, imports fuel/app/db.sql, writes db.php
+ *   and creates the admin.
+ * - db.php already present (e.g. generated from environment variables in
+ *   Docker) but the database is empty: only asks for the admin account.
+ * - Already installed: redirects to the home page.
+ */
+class Controller_Setup extends Controller
+{
+	/** Group id that grants access to the Cardinal (admin) dashboard. */
+	const ADMIN_GROUP = 3;
 
-		$tVars = array();
-		if (Input::post()) {
-			if (File::exists(APPPATH . '/config/db.php')) {
-				File::delete(APPPATH . '/config/db.php');
+	public function action_index()
+	{
+		$configured = Setup::has_db_config();
+		$pdo = null;
+
+		if ($configured) {
+			try {
+				$pdo = Setup::connect(Setup::existing_connection());
+			} catch (\Throwable $e) {
+				\Log::error('Setup: cannot connect with fuel/app/config/db.php: ' . $e->getMessage());
+
+				return $this->render($configured, 'Cannot connect to the database configured in fuel/app/config/db.php. Check the credentials (or your DB_* environment variables) and that MySQL is running.', false);
 			}
 
-			File::copy(APPPATH . '/config/db.php.template', APPPATH . '/config/db.php');
-			$configs = File::read(APPPATH . '/config/db.php', true);
-			foreach(Input::post() as $key => $value) {
-				$configs = str_replace($key, $value, $configs);
+			if (Setup::schema_installed($pdo)) {
+				Response::redirect(Uri::base());
 			}
-			File::update(APPPATH . '/config', 'db.php', $configs);
-			File::create(APPPATH . '/config', 'check.tmp', 'if this file exists, the DB can be populated');
-
-			Response::redirect(Uri::create('setup/populate/' . Input::post('DATABASE') . '/' . Input::post('ADMIN_USER'). '/' . Input::post('ADMIN_PASS'). '/' . base64_encode(Input::post('ADMIN_EMAIL'))));
 		}
-		return View::forge('setup/setup', $tVars);
-  }
 
-  public function action_populate($db, $user, $pass, $email)  {
-	if (!File::exists(APPPATH . '/config/check.tmp')) {
-		die('Invalid setup please restart');
-	} 
-	$email = base64_decode($email);
+		if (Input::method() !== 'POST') {
+			return $this->render($configured);
+		}
 
-	File::delete(APPPATH . '/config/check.tmp');
+		try {
+			$admin = $this->validate_admin();
 
-	$db = File::read(APPPATH . '/db.sql', true);
+			if (!$configured) {
+				$db = Setup::validate_db_input(array(
+					'host'     => Input::post('db_host'),
+					'port'     => Input::post('db_port'),
+					'name'     => Input::post('db_name'),
+					'user'     => Input::post('db_user'),
+					'password' => Input::post('db_password'),
+				));
 
-	$db = explode('-- --------------------------------------------------------', $db);
+				try {
+					$pdo = Setup::connect(Setup::db_config($db)['default']['connection']);
+				} catch (\PDOException $e) {
+					throw new \InvalidArgumentException('Could not connect to MySQL: ' . $e->getMessage());
+				}
 
-	foreach ($db as $sql) {
-		DB::query($sql)->execute();
+				if (Setup::schema_installed($pdo)) {
+					throw new \InvalidArgumentException('That database already contains Secret Republic tables. Use an empty database.');
+				}
+			}
+
+			Setup::import_schema($pdo);
+
+			if (!$configured) {
+				Setup::write_db_config($db);
+				\Config::load('db', true, true);
+			}
+
+			$id = Hacker::create($admin['username'], $admin['password'], $admin['email']);
+			Hacker::update(array('group' => static::ADMIN_GROUP), $id);
+			Hacker::force_login($id);
+		} catch (\InvalidArgumentException $e) {
+			return $this->render($configured, $e->getMessage());
+		} catch (\Throwable $e) {
+			\Log::error('Setup failed: ' . $e->getMessage());
+
+			return $this->render($configured, 'Setup failed: ' . $e->getMessage() . ' Empty the database and try again.');
+		}
+
+		Response::redirect(Uri::create('dashboard'));
 	}
 
+	/**
+	 * @return array{username:string,password:string,email:string}
+	 */
+	protected function validate_admin(): array
+	{
+		$admin = array(
+			'username' => trim((string) Input::post('admin_username')),
+			'password' => (string) Input::post('admin_password'),
+			'email'    => trim((string) Input::post('admin_email')),
+		);
 
-	$id = Hacker::create($user, $pass, $email);
-	Hacker::force_login($id);
-	hacker::update(['group' => 3]);
+		if (!Hacker::valid_username($admin['username'])) {
+			throw new \InvalidArgumentException('Admin username must be 1-30 letters or digits.');
+		}
+		if (!Hacker::valid_password($admin['password'])) {
+			throw new \InvalidArgumentException('Admin password must be 5-30 characters long.');
+		}
+		if (!filter_var($admin['email'], FILTER_VALIDATE_EMAIL)) {
+			throw new \InvalidArgumentException('Admin email address is not valid.');
+		}
 
-	Response::redirect(Uri::create(Uri::base()));
-  }
+		return $admin;
+	}
 
+	protected function render(bool $configured, ?string $error = null, bool $show_form = true)
+	{
+		$response = Response::forge(View::forge('setup/setup', array(
+			'configured' => $configured,
+			'error'      => $error,
+			'show_form'  => $show_form,
+			'defaults'   => array(
+				'db_host' => getenv('DB_HOST') ?: 'localhost',
+				'db_port' => getenv('DB_PORT') ?: '3306',
+				'db_name' => getenv('DB_NAME') ?: 'secretrepublic',
+				'db_user' => getenv('DB_USER') ?: 'root',
+			),
+		)));
 
+		if ($error !== null) {
+			$response->set_status($show_form ? 422 : 503);
+		}
+
+		return $response;
+	}
 }

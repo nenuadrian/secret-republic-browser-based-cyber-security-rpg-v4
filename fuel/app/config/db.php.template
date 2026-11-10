@@ -1,11 +1,21 @@
 <?php
-
+/**
+ * Example database configuration.
+ *
+ * The /setup wizard writes fuel/app/config/db.php for you. To configure the
+ * connection by hand instead, copy this file to db.php and fill in the values.
+ * Docker deployments use docker/db.php, driven by DB_* environment variables.
+ */
 return array(
-    'default' => array(
-        'connection'  => array(
-            'dsn'        => 'mysql:host=HOSTNAME:PORT;dbname=DATABASE',
-            'username'   => 'DB_USER',
-            'password'   => 'DB_PASS',
-        ),
-    ),
+	'default' => array(
+		'type' => 'pdo',
+		'connection' => array(
+			'dsn'      => 'mysql:host=localhost;port=3306;dbname=secretrepublic;charset=utf8mb4',
+			'username' => 'secretrepublic',
+			'password' => 'change-me',
+		),
+		'charset' => 'utf8mb4',
+		// The game was written against MySQL's permissive SQL mode.
+		'command' => "SET SESSION sql_mode = 'NO_ENGINE_SUBSTITUTION'",
+	),
 );

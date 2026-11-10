@@ -1,13 +1,41 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Hosting panel leftovers
 document_errors/**
 logs/**
 cgi-bin/**
 private/**
 stats/**
 public_shtml/**
+
+# Composer-managed code
 fuel/vendor
+fuel/core/**
+fuel/packages/email
+fuel/packages/parser
+
+# Local runtime state
 fuel/app/config/db.php
+fuel/app/config/crypt.php
+fuel/app/config/check.tmp
 fuel/app/tmp/**
 fuel/app/logs/**
 fuel/app/cache/**
-fuel/core/**
-site/
+!fuel/app/tmp/.gitkeep
+!fuel/app/cache/.gitkeep
+.env
+
+# Tooling
+.phpunit.cache/
+.phplint.cache/
+
+# Docs site (Astro)
+docs/node_modules/
+docs/dist/
+docs/.astro/
+
+# Release builds
+dist/

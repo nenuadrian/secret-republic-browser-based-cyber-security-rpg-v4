@@ -22,10 +22,10 @@ if (isset($max_width)) $bar['max_width'] = $max_width;
 echo View::forge('components/progress-bar', $bar); ?>
 <?php
   $countdown_id = 'bar_' . $countdown_id;
-  GlobalJs::add("var ${countdown_id} = new Countdown({
-    remaining: ${remaining},
-    duration: ${duration},
-    progressBar: ${countdown_id},
-    " . (!isset($hide_bottom_count) ? "bottomProgress: '${countdown_id}_bottom'," : '') . "
+  GlobalJs::add("var {$countdown_id} = new Countdown({
+    remaining: {$remaining},
+    duration: {$duration},
+    progressBar: {$countdown_id},
+    " . (!isset($hide_bottom_count) ? "bottomProgress: '{$countdown_id}_bottom'," : '') . "
   });");
 ?>

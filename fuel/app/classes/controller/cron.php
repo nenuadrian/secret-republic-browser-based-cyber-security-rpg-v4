@@ -17,7 +17,7 @@ class Controller_Cron extends Controller {
   }*/
 	
 	public function action_emails($hash) {
-		if ($hash != Config::get('cron_hash')) {
+		if (!hash_equals((string) Config::get('cron_hash'), (string) $hash)) {
 			die('Access denied - nice try');
 		}
 
@@ -25,15 +25,16 @@ class Controller_Cron extends Controller {
 		foreach($queue as $queue_id => $q) {
 			try {
 				\Model\Emails::process_queued_email($q);
-				DB::update('email_queue')->set(['processed_at' => DB::expr('NOW()')])->execute();
+				DB::update('email_queue')->set(['processed_at' => DB::expr('NOW()')])->where('queue_id', $queue_id)->execute();
 			} catch (Exception $ex) {
-				print_r($ex);
+				\Log::error('Email queue ' . $queue_id . ' failed: ' . $ex->getMessage());
+				echo 'Email ' . $queue_id . ' failed, see logs.' . PHP_EOL;
 			}
 		}
 	}
 	
 	public function action_rankings($hash) {
-		if ($hash != Config::get('cron_hash')) {
+		if (!hash_equals((string) Config::get('cron_hash'), (string) $hash)) {
 			die('Access denied - nice try');
 		}
 		

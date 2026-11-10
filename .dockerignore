@@ -1,8 +1,37 @@
+# VCS / CI
 .git
 .github
+.gitignore
+
+# Documentation & media (not needed at runtime)
 docs
 images
-tests
 *.md
-mkdocs.yml
-.gitignore
+
+# Local dependencies - installed inside the image
+fuel/vendor
+fuel/core
+fuel/packages/email
+fuel/packages/parser
+node_modules
+
+# Local state that must never be baked into the image
+fuel/app/config/db.php
+fuel/app/config/crypt.php
+fuel/app/config/check.tmp
+fuel/app/cache/*
+fuel/app/logs/*
+fuel/app/tmp/*
+.env
+.env.*
+
+# Dev tooling
+tests
+phpunit.xml
+.phpunit.cache
+.phplint.yml
+compose*.yaml
+docker-compose*.yml
+**/.DS_Store
+dist
+scripts

@@ -5,9 +5,12 @@ ini_set("pcre.jit", "0");
 
 return array(
 	'email_confirmation_enabled' => false,
-  'title'                  => 'Secret Republic of Hackers',
-  'cron_hash'                  => 'YOUR_UNIQUE_HASH',
-  'salt'                   => 'YOUR_UNIQUE_HASH2',
+  'title'                  => 'Secret Republic - Cyber Security RPG',
+  // Secret segment for /cron/<job>/<cron_hash>. Override with SR_CRON_HASH.
+  'cron_hash'                  => getenv('SR_CRON_HASH') ?: 'YOUR_UNIQUE_HASH',
+  // Global password-hashing salt. Override with SR_SALT *before* the first
+  // account is created: changing it later invalidates every existing password.
+  'salt'                   => getenv('SR_SALT') ?: 'YOUR_UNIQUE_HASH2',
   'iterations'             => 10000,
 
 	/**
@@ -59,25 +62,26 @@ return array(
 	 */
 	// 'ob_callback'  => null,
 
-	// 'errors'  => array(
-		// Which errors should we show, but continue execution? You can add the following:
-		// E_NOTICE, E_WARNING, E_DEPRECATED, E_STRICT to mimic PHP's default behaviour
-		// (which is to continue on non-fatal errors). We consider this bad practice.
-		// 'continue_on'  => array(),
+	'errors'  => array(
+		// Errors listed here are logged (and shown inline outside production)
+		// without halting the request. Deprecations raised by newer PHP versions
+		// do not change behaviour, so they must not take the game down.
+		'continue_on'  => array(E_DEPRECATED, E_USER_DEPRECATED),
 		// How many errors should we show before we stop showing them? (prevents out-of-memory errors)
 		// 'throttle'     => 10,
 		// Should notices from Error::notice() be shown?
 		// 'notices'      => true,
 		// Render previous contents or show it as HTML?
 		// 'render_prior' => false,
-	// ),
+	),
 
 	/**
 	 * Localization & internationalization settings
 	 */
 	// 'language'           => 'en', // Default language
 	// 'language_fallback'  => 'en', // Fallback language when file isn't available for default language
-	// 'locale'             => 'en_US', // PHP set_locale() setting, null to not set
+	// Locale fallbacks: slim Docker images and some hosts only ship C.UTF-8.
+	'locale'             => array('en_US.UTF-8', 'en_US.utf8', 'en_US', 'C.UTF-8', 'C'),
 
 	/**
 	 * Internal string encoding charset

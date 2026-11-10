@@ -9,10 +9,10 @@ return array (
 		/**
 		 * If true, clear the messages when calling the get methods.
 		 */
-		$clearOnGet = true,
+		'clearOnGet' => true,
 
 		/**
-		 * The format string for date time value
+		 * The date() format string for date time values
 		 */
-		$dateTimeFormat = "%H:%M:%s",
+		'dateTimeFormat' => 'H:i:s',
 );

@@ -1,0 +1,49 @@
+# Secret Republic - local stack (PHP 8.5 + Apache, MySQL 9.7 LTS)
+#
+#   docker compose up -d --build
+#   open http://localhost:8080   -> create your admin account
+#
+# Override any value below with a .env file next to this one.
+name: secretrepublic
+
+services:
+  app:
+    build: .
+    image: ghcr.io/nenuadrian/secret-republic-browser-based-cyber-security-rpg-v4:latest
+    ports:
+      - "${APP_PORT:-8080}:80"
+    environment:
+      FUEL_ENV: ${FUEL_ENV:-production}
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-secretrepublic}
+      DB_USER: ${DB_USER:-secretrepublic}
+      DB_PASSWORD: ${DB_PASSWORD:-secretrepublic}
+      # Optional secrets - see docs "Configuration". Set SR_SALT before the first signup.
+      SR_SALT: ${SR_SALT:-}
+      SR_CRON_HASH: ${SR_CRON_HASH:-}
+      SR_CRYPT_KEY: ${SR_CRYPT_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:9.7
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-secretrepublic}
+      MYSQL_USER: ${DB_USER:-secretrepublic}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-secretrepublic}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-change-me-root}
+    volumes:
+      - db-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u root -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  db-data:
