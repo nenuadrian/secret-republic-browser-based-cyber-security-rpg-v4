@@ -23,8 +23,9 @@ models without booting the framework.
 3. setup locks itself
 4. the new admin logs in
 5. 18 game and Cardinal pages return `200`
-6. a mission starts and the mission interface renders
-7. cron endpoints accept the right hash and reject a wrong one
+6. `/profile` opens your own profile, unknown players get a 404, and old `/hacker/...` URLs redirect
+7. a mission starts and the mission interface renders
+8. cron endpoints accept the right hash and reject a wrong one
 
 ```bash
 docker compose down -v                # start from an empty database
@@ -36,7 +37,7 @@ tests/smoke.sh http://localhost:8080
 
 | Workflow | Trigger | What it does |
 | -------- | ------- | ------------ |
-| `ci.yml` | push / PR to `master` | Lint + PHPUnit + `composer audit` on PHP 8.3, 8.4 and 8.5; builds the Docker stack and runs the smoke test |
+| `ci.yml` | push / PR to `master` | Lint + PHPUnit + `composer audit` on PHP 8.5; builds the Docker stack and runs the smoke test |
 | `docker.yml` | push to `master`, `v*` tags | Builds amd64 + arm64 images and pushes them to `ghcr.io` (`latest`, version and SHA tags) |
 | `release.yml` | `v*` tags | Builds standalone `.zip` / `.tar.gz` archives with all dependencies, then publishes a GitHub Release (Latest, or pre-release for `-rc` style tags) |
 | `docs-pages.yml` | changes under `docs/` or `images/` | Builds this site with Astro and deploys it to GitHub Pages |

@@ -3,7 +3,7 @@ echo View::forge('global/header'); ?>
 <div class="container">
 <h1 class="text-center">
   <?php if (Hacker::can('manage_user')): ?>
-    <a href="<?php echo Uri::create('cardinal/hacker/' . Hacker::id()); ?>"><?php echo $hacker['username']; ?></a>
+    <a href="<?php echo Uri::create('cardinal/player/' . $hacker['user_id']); ?>"><?php echo $hacker['username']; ?></a>
   <?php else: ?>
     <?php echo $hacker['username']; ?>
   <?php endif; ?>

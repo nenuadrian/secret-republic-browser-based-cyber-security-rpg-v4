@@ -13,7 +13,7 @@
 				<a href="<?php echo Uri::create('cardinal/online'); ?>"><h1><i class="fa fa-user-o" aria-hidden="true"></i></h1></a>
 			</div>
 			<div class="col-xs-3">
-				<a href="<?php echo Uri::create('cardinal/hackers'); ?>"><h1><i class="fa fa-users" aria-hidden="true"></i></h1></a>
+				<a href="<?php echo Uri::create('cardinal/players'); ?>"><h1><i class="fa fa-users" aria-hidden="true"></i></h1></a>
 			</div>
 			<div class="col-xs-3">
 				<a href="<?php echo Uri::create('cardinal/tutorial'); ?>"><h1><i class="fa fa-graduation-cap" aria-hidden="true"></i></h1></a>

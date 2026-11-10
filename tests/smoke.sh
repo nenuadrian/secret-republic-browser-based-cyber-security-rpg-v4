@@ -46,21 +46,31 @@ read -r code location < <(req --data-urlencode "username=$ADMIN_USER" --data-url
 
 echo "7. game pages respond"
 for path in dashboard quests quests/group/5 skills knowledge train rewards rankings world conversations dna \
-            hacker/access/$ADMIN_USER pages/view/story cardinal cardinal/missions cardinal/quest/9 \
+            profile/$ADMIN_USER pages/view/story cardinal cardinal/missions cardinal/quest/9 \
             cardinal/quest_objectives/9 cardinal/quest_servers/9; do
 	read -r code _ < <(req "$BASE/$path")
 	[[ "$code" == 200 ]] || fail "/$path returned $code"
 	printf '   %-28s %s\n' "/$path" "$code"
 done
 
-echo "8. starting a mission opens the mission interface"
+echo "8. profile URLs"
+read -r code location < <(req "$BASE/profile")
+[[ "$code" == 302 && "$location" == */profile/$ADMIN_USER ]] || fail "/profile should open your own profile: $code $location"
+read -r code location < <(req "$BASE/hacker/access/$ADMIN_USER")
+[[ "$code" == 301 && "$location" == */profile/$ADMIN_USER ]] || fail "legacy profile URL: $code $location"
+read -r code _ < <(req "$BASE/profile/no-such-player-xyz")
+[[ "$code" == 404 ]] || fail "unknown profile should be 404, got $code"
+read -r code location < <(req "$BASE/cardinal/hackers")
+[[ "$code" == 301 && "$location" == */cardinal/players ]] || fail "legacy admin URL: $code $location"
+
+echo "9. starting a mission opens the mission interface"
 read -r code location < <(req "$BASE/quests/play/9")
 [[ "$code" == 302 && "$location" == */quests/interface ]] || fail "quests/play/9: $code $location"
 read -r code _ < <(req "$BASE/quests/interface")
 [[ "$code" == 200 ]] && grep -q 'cancel mission' "$BODY" || fail "mission interface: $code"
 req -d "cancel=true" "$BASE/quests/interface" >/dev/null
 
-echo "9. cron endpoints"
+echo "10. cron endpoints"
 read -r code _ < <(req "$BASE/cron/rankings/${SR_CRON_HASH:-YOUR_UNIQUE_HASH}")
 [[ "$code" == 200 ]] || fail "cron rankings: $code"
 read -r code _ < <(req "$BASE/cron/rankings/wrong-hash")

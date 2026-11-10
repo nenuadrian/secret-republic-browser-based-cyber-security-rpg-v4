@@ -15,7 +15,7 @@ competition with more than 13,000 participants.
 - **A mission designer** (the _Cardinal_ admin area) to build servers, services, users, files, emails and
   chained objectives, and test-play them in place.
 - **Progression**: levels and experience, six skills, three knowledge trees, training runs, claimable
-  rewards, rankings and public profiles.
+  rewards, rankings and public profiles at `/profile/<username>`.
 - **Social**: private conversations between players, a feedback inbox and world statistics.
 - **Voice**: an AI operator voice (MP3/OGG clips) reacts to player actions.
 - **Mobile-ready** Bootstrap UI. You can also wrap it as a native app with the companion
@@ -26,7 +26,7 @@ competition with more than 13,000 participants.
 
 | Layer       | Version                                                     |
 | ----------- | ----------------------------------------------------------- |
-| Language    | PHP 8.3, 8.4 or 8.5 (Docker image uses **8.5**)              |
+| Language    | PHP 8.3 or newer; tested on **8.5**, which the Docker image uses |
 | Framework   | [FuelPHP](https://fuelphp.com) 1.9 (HMVC), installed via Composer |
 | Database    | MySQL 8.0+ (Docker uses **MySQL 9.7 LTS**)                   |
 | Web server  | Apache with `mod_rewrite` (Docker: `php:8.5-apache`)         |

@@ -42,7 +42,8 @@
 	--sl-font-mono: 'JetBrains Mono Variable', ui-monospace, 'SFMono-Regular', Menlo, monospace;
 	--sl-text-body: 1.0625rem;
 	--sl-line-height: 1.7;
-	--sl-content-width: 48rem;
+	/* Full-width content: fill everything between the sidebars */
+	--sl-content-width: 100vw;
 
 	color-scheme: dark;
 }

@@ -34,7 +34,7 @@ echo View::forge('global/header'); ?>
 	<?php endforeach; ?>
 	</div>
 	<div class="col-md-6">
-		<h3 class="text-right">hackery quote</h3>
+		<h3 class="text-right">quote of the day</h3>
 		<blockquote>
 			<?php echo $quote['content']; ?>
 			<?php if ($quote['author']): ?>

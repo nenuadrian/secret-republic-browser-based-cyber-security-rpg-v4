@@ -7,7 +7,7 @@ Use this path for shared hosting, MAMP/XAMPP or an existing Linux server.
 
 ## Requirements
 
-- **PHP 8.3, 8.4 or 8.5** with the `pdo_mysql`, `mysqli`, `sqlite3` and `mbstring` extensions
+- **PHP 8.3 or newer** (tested on 8.5) with the `pdo_mysql`, `mysqli`, `sqlite3` and `mbstring` extensions
 - **Apache** with `mod_rewrite` and `AllowOverride All` (Nginx works too; see below)
 - **MySQL 8.0 or newer** (tested on 9.7). MariaDB is likely to work but is not tested.
 - An **empty database** and a user with full rights on it
